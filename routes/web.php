@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,21 @@ Route::get('/', function () {
 
 Route::get('/hola', function () {
     return 'hola';
+});
+
+Route::get('/libros', function(){
+    $libros= DB::table('books')->get();
+    //dd($libros);
+    return view('libros.indexLibros', compact('libros'));
+});
+
+Route::get('/libros/create', function(){
+    return view('libros.formLibros');
+});
+
+Route::post('/tareas/store', function(){
+    //validacion y limpieza
+    //guardar
+    //redireccionar
+
 });
