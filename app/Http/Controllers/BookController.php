@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Bus;
 
 class BookController extends Controller
 {
@@ -36,7 +37,26 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->validate([
+            'titulo'=> 'required',
+            'autor'=> 'required',
+            'year'=> 'required',
+            'genero'=> 'required',
+            'puntaje'=> 'required'
+        ]);
+
+        $libro = new Book();
+        $libro->titulo = $request->titulo;
+        $libro->autor = $request->autor;
+        $libro->year = $request->year;
+        $libro->genero = $request->genero;
+        $libro->puntaje = $request->puntaje;
+        $libro->comentario = $request->comentario;
+
+        $libro->save();
+
+        return redirect('/libros');
     }
 
     /**
