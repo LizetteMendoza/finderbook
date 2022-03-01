@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,19 +22,10 @@ Route::get('/hola', function () {
     return 'hola';
 });
 
-Route::get('/libros', function(){
-    $libros= DB::table('books')->get();
-    //dd($libros);
-    return view('libros.indexLibros', compact('libros'));
-});
+//Route::get('/libros', [BookController::class,'index']);
 
-Route::get('/libros/create', function(){
-    return view('libros.formLibros');
-});
+//Route::get('/libros/create', [BookController::class,'create']);
 
-Route::post('/tareas/store', function(){
-    //validacion y limpieza
-    //guardar
-    //redireccionar
+//Route::post('/tareas/store',[BookController::class,'store']);
 
-});
+Route::resource('/libros', BookController::class);
