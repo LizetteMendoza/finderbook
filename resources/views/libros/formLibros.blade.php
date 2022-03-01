@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +7,19 @@
     <title>Formulario</title>
 </head>
 <body>
-    <h1>Agregar libro</h1>
     
     @isset($book)
+        <h1>Editar libro</h1>
         <form action="/libros/{{$book->id}}" method="POST"> {{--Editar--}} 
             @method('PATCH')
     @else
+        <h1>Agregar libro</h1>
         <form action="/libros" method="POST"> {{--Crear--}}
     @endisset
     
         @csrf
         <label for="titulo">Titulo</label><br>
-        <input type="text" name="titulo" value="{{isset($book)?$book->titulo: ''}}{{old('titulo')}}"><br>
+        <input type="text" name="titulo" value="{{isset($book)? $book->titulo:''}}{{old('titulo')}}"><br>
         @error('titulo')
             <div class="alert alert-danger">{{$message}}</div>
         @enderror <br>
