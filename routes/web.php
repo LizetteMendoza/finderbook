@@ -22,10 +22,4 @@ Route::get('/hola', function () {
     return 'hola';
 });
 
-//Route::get('/libros', [BookController::class,'index']);
-
-//Route::get('/libros/create', [BookController::class,'create']);
-
-//Route::post('/tareas/store',[BookController::class,'store']);
-
 Route::resource('/libros', BookController::class);

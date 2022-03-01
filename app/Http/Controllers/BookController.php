@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Bus;
 
 class BookController extends Controller
 {
@@ -15,8 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $libros = Book::all();
-        return view('/libros.indexLibros', compact('libros'));
+        $books = Book::all();
+        return view('/libros.indexLibros', compact('books'));
     }
 
     /**
@@ -26,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('/libros/formLibros');
+        return view('/libros.formLibros');
     }
 
     /**
@@ -65,9 +64,11 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
+    public function show($id)
     {
-        //
+
+        $book = Book::find($id);
+        return view('libros.showLibro', compact('book'));
     }
 
     /**
@@ -78,7 +79,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('/libros.formLibros', compact('book'));
     }
 
     /**
@@ -90,7 +91,24 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'titulo'=> 'required',
+            'autor'=> 'required',
+            'year'=> 'required',
+            'genero'=> 'required',
+            'puntaje'=> 'required'
+        ]);
+        
+        $book->titulo = $request->titulo;
+        $book->autor = $request->autor;
+        $book->year = $request->year;
+        $book->genero = $request->genero;
+        $book->puntaje = $request->puntaje;
+        $book->comentario = $request->comentario;
+
+        $book->save();
+
+        return redirect('/libros');
     }
 
     /**
